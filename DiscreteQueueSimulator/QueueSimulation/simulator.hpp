@@ -47,6 +47,7 @@ class Service {
         //std::priority_queue<Event, std::vector<Event>, compareEventTime> eventQueue;
         int currentTime = 0;
     public:
+        virtual void runSim() = 0;
         void addEvent(Event& event);
         int getCurentTime();
         std::vector<int> serviceTimes;
