@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
 } from 'react-native'
 
-import note from './note';
 import Note from './note';
 
 export default class Main extends React.Component {
@@ -25,9 +24,9 @@ export default class Main extends React.Component {
 
     render() {
 
-        let notes = this.state.noteArray.map((val, key) =>{
+        let notes = this.state.noteArray.map((val, key) => {
             return <Note key={key} keyval={key} val={val}
-                deleteMethod={ ()=> this.deletNote(key)} />
+                deleteMethod={ ()=> this.deleteNote(key)} />
 
         });
 
@@ -40,7 +39,7 @@ export default class Main extends React.Component {
                 </View>
 
                 <ScrollView style={styles.scrollContainer}>
-
+                    {notes}
                 </ScrollView>
 
                 <View style={styles.footer}>
@@ -65,17 +64,21 @@ export default class Main extends React.Component {
 
     addNote() {
         if (this.state.noteText) {
-            let date = new Date();
+            let d = new Date();
             this.state.noteArray.push({
-                'date': date.getFullYear() + 
-                "/" + (date.getMonth() + 1) + 
-                "/" + date.getDate()
+                'date': d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate(),
+                'note': this.state.noteText,
             });
-            this.setState({ noteArray })
+            this.setState({ noteArray: this.state.noteArray })
             this.setState({ noteText: ''})
         }
         // alert('Nice try bruh, you not sliding in her DM\'s with your creepy self lol');
-        // console.log("running add message button")
+        console.log("running add message button")
+    }
+
+    deleteNote(key) {
+        this.state.noteArray.splice(key, 1);
+        this.setState({ noteArray: this.state.noteArray })
     }
 
 }
